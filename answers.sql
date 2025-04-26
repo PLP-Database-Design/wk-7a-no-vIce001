@@ -48,7 +48,7 @@ VALUES (1, "John Doe"),
 -- Query to create OrderDetails table (It references the Customers table using the CustomerId column which is a foreign key):
 USE storedb;
 
-CREATE TABLE ProductDetail(
+CREATE TABLE OrderDetails(
 OrderId INT,
 CustomerId INT,
 Product VARCHAR(10),
@@ -59,7 +59,7 @@ FOREIGN KEY (CustomerId) REFERENCES Customers(CustomerId)
 -- Query to populate OrderDetails table with values:
 USE storedb;
 
-INSERT INTO ProductDetail(OrderId, CustomerId, Product, Quantity)
+INSERT INTO OrderDetails(OrderId, CustomerId, Product, Quantity)
 VALUES (101, 1, "Laptop", 2),
 (101, 1, "Mouse", 1),
 (102, 2, "Tablet", 3),
