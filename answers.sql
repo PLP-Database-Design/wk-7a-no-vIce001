@@ -8,14 +8,14 @@ USE shopdb;
 
 CREATE TABLE ProductDetail(
 OrderId INT,
-CustomerName VARCHAR(50),
-Product VARCHAR(10)
+CustomerName VARCHAR(100),
+Products VARCHAR(100)
 );
 
 -- Query to transform ProductDetail table into 1NF  
 USE shopdb;
 
-INSERT INTO ProductDetail(OrderId, CustomerName, Product)
+INSERT INTO ProductDetail(OrderId, CustomerName, Products)
 VALUES (101, "John Doe", "Laptop"),
 (101, "John Doe", "Mouse"),
 (102, "Jane Smith", "Tablet"),
@@ -32,40 +32,40 @@ CREATE DATABASE storedb;
 -- Query to create Customers Table to eliminate partial dependecies in OrderDetails:
 USE storedb;
 
-CREATE TABLE Customers(
-CustomerId INT PRIMARY KEY,
-CustomerName VARCHAR(50)
+CREATE TABLE orders(
+OrderId INT PRIMARY KEY,
+CustomerName VARCHAR(100)
 );
 
 -- Query to populate Customers Table:
 USE storedb;
 
-INSERT INTO Customers(CustomerId, CustomerName)
-VALUES (1, "John Doe"),
-(2, "Jane Smith"),
-(3, "Emily Smmith");
+INSERT INTO orders (OrderId, CustomerName)
+VALUES (101, "John Doe"),
+(102, "Jane Smith"),
+(103, "Emily Smmith");
 
 -- Query to create OrderDetails table (It references the Customers table using the CustomerId column which is a foreign key):
 USE storedb;
 
-CREATE TABLE OrderDetails(
-OrderId INT,
-CustomerId INT,
-Product VARCHAR(10),
-Quantity INT,
-FOREIGN KEY (CustomerId) REFERENCES Customers(CustomerId)
+CREATE TABLE product(
+productId INT primary key,
+productName VARCHAR(100),
+quantity INT,
+orderid INT,
+FOREIGN KEY (orderid) REFERENCES orders(OrderId)
 );
 
 -- Query to populate OrderDetails table with values:
 USE storedb;
 
-INSERT INTO OrderDetails(OrderId, CustomerId, Product, Quantity)
-VALUES (101, 1, "Laptop", 2),
-(101, 1, "Mouse", 1),
-(102, 2, "Tablet", 3),
-(102, 2, "Keyboard", 1),
-(102, 2, "Mouse", 2),
-(103, 3, "Phone", 1);
+INSERT INTO product(productId, productName, quantity, orderid)
+VALUES (1, "Laptop", 2, 101),
+(2, "Mouse", 1, 101),
+(3, "Tablet", 3, 102),
+(4, "Keyboard", 2, 102),
+(5, "Mouse", 1, 102),
+(6, "Phone", 1, 103);
 
 
 
